@@ -1,0 +1,27 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+img {
+    height: 150px;
+}
+
+h1 {
+    color: #FFF;
+    font-size: xx-large;
+}
+
+ul {
+    padding: 0;
+}
+
+.answers {
+    list-style-type: none;
+    /* width: 200px; */
+    margin: 10px;
+}
+
+.answers>button {
+    width: 100%;
+}
