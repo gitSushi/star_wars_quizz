@@ -8,19 +8,33 @@ import QandA from './components/QandA'
 class App extends Component {
   state = {
     question: QandA[0].question,
-    answers: QandA[0].answer,
-    idx: 1
+    choices: QandA[0].choice,
+    answer: QandA[0].answer,
+    idx: 1,
+    score: 0
   };
-  nextQuestion = () => {
-    let { idx } = this.state;
+  nextQuestion = (e) => {
+    let { idx, score, answer } = this.state;
     this.setState({
       idx: idx + 1,
       question: QandA[idx].question,
-      answers: QandA[idx].answer
+      choices: QandA[idx].choice,
+      answer: QandA[idx].answer      
     });
+    console.log("answer is " + answer + " / e.currentTarget is " + e.currentTarget.dataset.id);
+    if(idx === 3){
+      alert("quizz ended");
+      //location.reload();
+    }
+    if(Number(e.currentTarget.dataset.id) === answer){
+      this.setState({
+        score: score + 1
+      });
+      console.log("score is " + score);
+    }
   };
   render() {
-    let { question, answers } = this.state;
+    let { question, choices } = this.state;
     return (
       <div style={{ backgroundColor: "#000" }}>
         <header className="App">
@@ -31,10 +45,10 @@ class App extends Component {
           <h2 className="text-center text-danger p-3">{question}</h2>
           <ul className="row mt-5">
             {
-              answers.map((answer) => {
+              choices.map((choice, index) => {
                 return (
-                  <li className="answers col-md" key={answer}>
-                    <button type="button" className="btn btn-primary" onClick={this.nextQuestion}>{answer}</button>
+                  <li className="choices col-md" key={choice}>
+                    <button type="button" className="btn btn-primary" onClick={this.nextQuestion} data-id={index}>{choice}</button>
                   </li>
                 );
               })
